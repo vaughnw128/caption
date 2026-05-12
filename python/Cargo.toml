@@ -1,0 +1,18 @@
+[package]
+name = "caption-python"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "caption"
+crate-type = ["cdylib"]
+
+[dependencies]
+caption_lib = { path = "..", package = "caption" }
+pyo3 = { version = "0.28.3", features = ["extension-module"] }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"

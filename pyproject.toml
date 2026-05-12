@@ -1,0 +1,14 @@
+[build-system]
+requires = ["maturin>=1,<2"]
+build-backend = "maturin"
+
+[project]
+name = "caption"
+version = "0.1.0"
+description = "Fast image and GIF captioning"
+requires-python = ">=3.14"
+
+[tool.maturin]
+bindings = "pyo3"
+manifest-path = "python/Cargo.toml"
+python-source = "python"
