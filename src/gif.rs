@@ -195,14 +195,18 @@ fn prepare_rgb_frames(
             let mut rgb = Vec::with_capacity(dims.out_width * dims.out_height_usize * 3);
             rgb.extend(
                 bar_rgba[..dims.bar_len]
-                    .chunks_exact(4)
+                    .as_chunks::<4>()
+                    .0
+                    .iter()
                     .flat_map(|px| [px[0], px[1], px[2]]),
             );
             rgb.extend(
                 decoded
                     .rgba
                     .as_raw()
-                    .chunks_exact(4)
+                    .as_chunks::<4>()
+                    .0
+                    .iter()
                     .flat_map(|px| [px[0], px[1], px[2]]),
             );
 

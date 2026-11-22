@@ -193,7 +193,7 @@ fn encode_image(img: &RgbaImage, format: ImageFormat) -> Result<Vec<u8>, Caption
         }
         ImageFormat::Jpeg => {
             let mut rgb = Vec::with_capacity((width * height * 3) as usize);
-            for px in raw.chunks_exact(4) {
+            for px in raw.as_chunks::<4>().0 {
                 rgb.extend_from_slice(&px[..3]);
             }
             JpegEncoder::new(&mut buf).encode(&rgb, width, height, ExtendedColorType::Rgb8)?;

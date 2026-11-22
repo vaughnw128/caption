@@ -1,0 +1,29 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  release:
+    if: ${{ !contains(github.event.head_commit.message || '', '[skip release]') }}
+    permissions:
+      contents: write
+      checks: read
+      packages: write
+      pull-requests: read
+      issues: read
+      security-events: write
+    uses: vaughnw128/hakoniwa/.github/workflows/release-on-merge.yml@main
+    with:
+      language: rust
+      binary-name: caption-image
+      skip-docker: true
+      flux-repo: ""
